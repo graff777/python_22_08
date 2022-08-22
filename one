@@ -1,22 +1,22 @@
 import time
-zapros=input('vvedite zapros \n')
+zapros=input('введите запрос \n')
 f=open('zaprosi.txt', 'a')
 f.write(zapros+' '+time.strftime("%H:%M:%S"+' '+"%d/%m/%Y"+'\n'))
 f.close()
-zapros2=zapros.split(',')
-if zapros2[0].lower()=='alisa':
-    otv={
-        ' privet'         : 'privet',
-        ' kak dela'       : 'poka ne rodila',
-        ' skolko vremeni' : time.strftime("%H:%M:%S"),
-        ' kakaya data'    : time.strftime("%d/%m/%Y")
+zapros_razb=zapros.split(',')
+if zapros_razb[0].lower()=='алиса':
+    try: 
+        otv={
+        'привет'      :'привет',
+        'как дела'    :'пока не родила',
+        'который час' :time.strftime("%H:%M:%S"),
+        'какая дата'  :time.strftime("%m/%d/%Y")
         }
-  
-    print(otv[zapros2[1]])
-    f=open('zaprosi.txt', 'r')
-    if zapros in f:
-        print('takoi zapros uge bil')
-    f.close()
-else:
-    print('povtorite zapros')
+        print(otv[zapros_razb[1].strip()])
+    except BaseException:
+        print('неизвестный запрос')
+    
+else: 
+    print('повторите запрос')
+
 
