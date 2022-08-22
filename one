@@ -1,0 +1,22 @@
+import time
+zapros=input('vvedite zapros \n')
+f=open('zaprosi.txt', 'a')
+f.write(zapros+' '+time.strftime("%H:%M:%S"+' '+"%d/%m/%Y"+'\n'))
+f.close()
+zapros2=zapros.split(',')
+if zapros2[0].lower()=='alisa':
+    otv={
+        ' privet'         : 'privet',
+        ' kak dela'       : 'poka ne rodila',
+        ' skolko vremeni' : time.strftime("%H:%M:%S"),
+        ' kakaya data'    : time.strftime("%d/%m/%Y")
+        }
+  
+    print(otv[zapros2[1]])
+    f=open('zaprosi.txt', 'r')
+    if zapros in f:
+        print('takoi zapros uge bil')
+    f.close()
+else:
+    print('povtorite zapros')
+
