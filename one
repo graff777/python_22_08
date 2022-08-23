@@ -1,4 +1,5 @@
 import time
+a=["poka ne rodila", "vse ok", "good", "ola-la-la", "secret"]
 zapros=input('введите запрос \n')
 f=open('zaprosi.txt', 'a')
 f.write(zapros+' '+time.strftime("%H:%M:%S"+' '+"%d/%m/%Y"+'\n'))
@@ -8,7 +9,7 @@ if zapros_razb[0].lower()=='алиса':
     try: 
         otv={
         'привет'      :'привет',
-        'как дела'    :'пока не родила',
+        'как дела'    :random.choice(a),
         'который час' :time.strftime("%H:%M:%S"),
         'какая дата'  :time.strftime("%m/%d/%Y")
         }
