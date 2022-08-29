@@ -1,23 +1,55 @@
 import time
-a=["poka ne rodila", "vse ok", "good", "ola-la-la", "secret"]
-zapros=input('введите запрос \n')
-f=open('zaprosi.txt', 'a')
-f.write(zapros+' '+time.strftime("%H:%M:%S"+' '+"%d/%m/%Y"+'\n'))
-f.close()
-zapros_razb=zapros.split(',')
-if zapros_razb[0].lower()=='алиса':
-    try: 
-        otv={
-        'привет'      :'привет',
-        'как дела'    :random.choice(a),
-        'который час' :time.strftime("%H:%M:%S"),
-        'какая дата'  :time.strftime("%m/%d/%Y")
-        }
-        print(otv[zapros_razb[1].strip()])
-    except BaseException:
-        print('неизвестный запрос')
-    
-else: 
-    print('повторите запрос')
+import random
+import sqlite3
 
+def query_db():
+    con = sqlite3.connect('alisa.db')
+    cursorObj = con.cursor()
+    cursorObj.execute('SELECT id FROM querys')
+    rows = cursorObj.fetchall()
+    return len(rows)+1
+
+def create_db():
+    con = sqlite3.connect('alisa.db')
+    cursorObj = con.cursor()
+    cursorObj.execute('CREATE TABLE querys(id integer PRIMARY KEY, query text, data text)')
+    con.commit()
+
+def append_db(zapros):
+    con = sqlite3.connect('alisa.db')
+    cursorObj = con.cursor()
+    cursorObj.execute('INSERT INTO querys(id, query, data) VALUES(?, ?, ?)',entities)
+    con.commit()
+
+def smotr():
+    con = sqlite3.connect('alisa.db')
+    cursorObj = con.cursor()
+    cursorObj.execute('SELECT * FROM querys')
+    rows = cursorObj.fetchall()
+ 
+    for row in rows:
+ 
+        print(row)
+    con.commit()
+
+zapros=input('vvedite zapros \n')
+entities = (query_db(), zapros, time.strftime("%H:%M:%S"+' '+"%d/%m/%Y"))
+append_db(zapros)
+smotr()
+zapros2=zapros.split(',')
+a=["poka ne rodila", "vse ok", "good", "ola-la-la", "secret"]
+if zapros2[0].lower()=='alisa':
+    try:
+        otv={
+        'privet'         : 'privet',
+        'kak dela'       : random.choice(a),
+        'skolko vremeni' : time.strftime("%H:%M:%S"),
+        'kakaya data'    : time.strftime("%d/%m/%Y")
+        }
+        print(otv[zapros2[1].strip()])
+    except BaseException:
+        print('zapros neizv')
+        
+else:
+    print('povtorite zapros')
 
