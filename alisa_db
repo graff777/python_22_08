@@ -1,0 +1,30 @@
+import sqlite3
+
+query=input('input query \n') 
+con = sqlite3.connect('wheater_base.db')
+cursorObj = con.cursor()
+def create_table():
+    cursorObj.execute('CREATE TABLE querys(id int, query text)')
+    con.commit()
+ 
+def sql_insert(con, entities):
+    cursorObj.execute('INSERT INTO querys(id, query) VALUES(?, ?)', entities)
+    con.commit()
+def see():
+    cursorObj.execute('SELECT id FROM querys')
+    rows = cursorObj.fetchall()
+    #id=rows[0][0]
+    return len(rows)+1
+    
+    #id=id+1
+    #print(id)
+def see_table():
+    cursorObj.execute('SELECT * FROM querys')
+    rows = cursorObj.fetchall()
+    for row in rows:
+        print(row)
+#create_table()
+#print(see())
+#entities = (see(), query)
+#sql_insert(con, entities)
+see_table()
